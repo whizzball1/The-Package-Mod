@@ -151,11 +151,7 @@ public class TileResearcher extends TileEntity implements ITickable {
     public void setResearched(String name) {
         if (world != null) if (!(world.isRemote)) {
             PlayerData.PlayerSave data = PlayerData.getDataFromPlayer(world, owner);
-            List<String> researchedPackages = data.packagesResearched;
-            if (!(researchedPackages.contains(name))) {
-                researchedPackages.add(name);
-                ps.packagesResearched = researchedPackages;
-            }
+            if (!(data.packagesResearched.contains(name))) data.packagesResearched.add(name);
             packagemod.logger.info(data.packagesResearched.toString());
             WorldData.get(world, false).markDirty();
         }

@@ -7,6 +7,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.MapStorage;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -34,7 +35,8 @@ public class WorldData extends WorldSavedData {
     private static WorldData getInternal(World world, boolean forceLoad){
         if(forceLoad || data == null){
             if(!world.isRemote){
-                WorldSavedData savedData = world.loadData(WorldData.class, DATA_TAG);
+                MapStorage storage = world.getMapStorage();
+                WorldData savedData = (WorldData) storage.getOrLoadData(WorldData.class, DATA_TAG);
 
                 if(!(savedData instanceof WorldData)){
                     packagemod.logger.info("No WorldData found, creating...");
@@ -44,7 +46,7 @@ public class WorldData extends WorldSavedData {
                     data = newData;
                 }
                 else{
-                    data = (WorldData) savedData;
+                    data = savedData;
                     packagemod.logger.info("Successfully loaded WorldData!");
                 }
             }
