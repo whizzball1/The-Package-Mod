@@ -1,0 +1,18 @@
+item.packagemod.packagereader.name=Package Reader
+item.packagemod.packageitem.name=Package
+
+itemGroup.packagemod=The Package Mod
+
+# Commands
+commands.packagemod.packagesetresearched.usage=/packagesetresearched <player> <researchid> <true/false>
+commands.packagemod.packagesetresearched.playerfailed=Player not found!
+commands.packagemod.packagesetresearched.cpfailed=Crafting Package not found!
+
+commands.packagemod.packagecheckifresearched.usage=/packagecheckifresearched <player> <researchid>
+commands.packagemod.packagecheckresearched.usage=/packagecheckresearched <player>
+commands.packagemod.true=True
+commands.packagemod.false=False
+commands.packagemod.researched=Researched: %d
+
+# Other Text
+packagemod.page=Page %d of %d

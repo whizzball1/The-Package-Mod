@@ -1,0 +1,16 @@
+[
+{
+  "modid": "packagemod",
+  "name": "The Package Mod",
+  "description": "Factorio-style recipes and research.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["whizzball1"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
