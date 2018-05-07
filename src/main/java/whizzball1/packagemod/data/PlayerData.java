@@ -67,8 +67,8 @@ public class PlayerData {
         public void readFromNBT(NBTTagCompound compound) {
             NBTTagCompound researchData = compound.getCompoundTag("Research");
             packagesResearched.clear();
-            for (int i = 0; i < packagemod.craftingPackageList.size(); i++) {
-                String packageName = packagemod.craftingPackageList.get(i).name;
+            for (CraftingPackage cp : packagemod.craftingPackageList) {
+                String packageName = cp.name;
                 if (researchData.getTag(packageName) == null) {
                     continue;
                 }
@@ -89,14 +89,12 @@ public class PlayerData {
 
         public void writeToNBT(NBTTagCompound compound){
             NBTTagCompound researchData = new NBTTagCompound();
-            packageloop: for (int i = 0; i < packagemod.craftingPackageList.size(); i++) {
-                String packageName = packagemod.craftingPackageList.get(i).name;
-                for (int j = 0; j < packagesResearched.size(); j++) {
-                    String currentPackage = packagesResearched.get(j);
-                    if (currentPackage == packageName) {
-                        researchData.setInteger(packageName, 1);
-                        continue packageloop;
-                    }
+            //packagemod.logger.info(packagesResearched.toString());
+            packageloop: for (CraftingPackage cp : packagemod.craftingPackageList) {
+                String packageName = cp.name;
+                if (packagesResearched.contains(packageName)) {
+                    researchData.setInteger(packageName, 1);
+                    continue packageloop;
                 }
                 researchData.setInteger(packageName, 0);
 
@@ -129,14 +127,12 @@ public class PlayerData {
 
         public void writeResearchedToNBT(NBTTagCompound compound) {
             NBTTagCompound researchData = new NBTTagCompound();
-            packageloop: for (int i = 0; i < packagemod.craftingPackageList.size(); i++) {
-                String packageName = packagemod.craftingPackageList.get(i).name;
-                for (int j = 0; j < packagesResearched.size(); j++) {
-                    String currentPackage = packagesResearched.get(j);
-                    if (currentPackage == packageName) {
-                        researchData.setInteger(packageName, 1);
-                        continue packageloop;
-                    }
+            //packagemod.logger.info("writing researched to NBT: " + packagesResearched.toString());
+            packageloop: for (CraftingPackage cp : packagemod.craftingPackageList) {
+                String packageName = cp.name;
+                if (packagesResearched.contains(packageName)) {
+                    researchData.setInteger(packageName, 1);
+                    continue packageloop;
                 }
                 researchData.setInteger(packageName, 0);
 
@@ -159,14 +155,14 @@ public class PlayerData {
         public void readResearchedFromNBT(NBTTagCompound compound) {
             NBTTagCompound researchData = compound.getCompoundTag("Research");
             packagesResearched.clear();
-            for (int i = 0; i < packagemod.craftingPackageList.size(); i++) {
-                String packageName = packagemod.craftingPackageList.get(i).name;
+            for (CraftingPackage cp : packagemod.craftingPackageList) {
+                String packageName = cp.name;
                 if (researchData.getTag(packageName) == null) {
                     continue;
                 }
                 if (researchData.getInteger(packageName) == 1) {
                     packagesResearched.add(packageName);
-                    packagemod.logger.info(packageName);
+                    //packagemod.logger.info(packageName);
                 }
             }
         }

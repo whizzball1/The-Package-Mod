@@ -131,7 +131,7 @@ public class WorldData extends WorldSavedData {
             for (int i = 0; i < oldListSize; i++) {
                 NBTTagCompound currentPlayer = oldList.getCompoundTagAt(i);
                 UUID currentUUID = currentPlayer.getUniqueId("UUID");
-                packagemod.logger.info(currentUUID.toString());
+                //packagemod.logger.info(currentUUID.toString());
 
             }
 

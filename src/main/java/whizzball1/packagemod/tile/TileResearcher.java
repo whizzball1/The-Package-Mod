@@ -150,6 +150,7 @@ public class TileResearcher extends TileEntity implements ITickable {
 
     public void setResearched(String name) {
         if (world != null) if (!(world.isRemote)) {
+            packagemod.logger.info(world.provider.getDimension());
             PlayerData.PlayerSave data = PlayerData.getDataFromPlayer(world, owner);
             if (!(data.packagesResearched.contains(name))) data.packagesResearched.add(name);
             packagemod.logger.info(data.packagesResearched.toString());
@@ -217,16 +218,6 @@ public class TileResearcher extends TileEntity implements ITickable {
             }
         }
         return hasPrereqs;
-    }
-
-    @Override
-    public void setWorld(World worldIn) {
-        packagemod.logger.info("setting world");
-        super.setWorld(worldIn);
-        if (!(worldIn.isRemote)) {
-            wd = WorldData.get(worldIn, false);
-            isTherePS = false;
-        }
     }
 
     public void setOwner(UUID id) {
