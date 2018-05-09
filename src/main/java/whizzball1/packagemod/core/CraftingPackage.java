@@ -71,12 +71,20 @@ public class CraftingPackage implements Comparable<CraftingPackage> {
         return nbt;
     }
 
-    public static boolean hasRequirement(CraftingPackage cp, ItemStack item, int remaining) {
+    public static boolean hasRequirement(CraftingPackage cp, ItemStack item, int remaining, boolean research) {
         ItemRequirement.ReqKey key = new ItemRequirement.ReqKey(item);
-        if (cp.stackToRequirement.get(key) != null) {
-            if (remaining > cp.stackToRequirement.get(key).totalRequirement) {
-                return false;
-            } else return true;
+        if (!(research)) {
+            if (cp.stackToRequirement.get(key) != null) {
+                if (remaining > cp.stackToRequirement.get(key).totalRequirement) {
+                    return false;
+                } else return true;
+            }
+        } else {
+            if (cp.research.stackToResearch.get(key) != null) {
+                if (remaining > cp.research.stackToResearch.get(key).totalRequirement) {
+                    return false;
+                } else return true;
+            }
         }
         return false;
     }

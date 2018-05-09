@@ -57,7 +57,7 @@ public class TileResearcher extends TileEntity implements ITickable {
         setOwner(owner);
         String tempRecipeName = compound.getString(("recipeName"));
         if (!(tempRecipeName.equals(""))) {
-            if (CraftingPackage.getPackageGivenName(tempRecipeName) != null) {
+            if (CraftingPackage.getPackageGivenName(tempRecipeName) != null) if (compound.getBoolean("recipeComplete") == false){
                 this.changeRecipe(compound.getString("recipeName"));
                 NBTTagCompound reqList = compound.getCompoundTag("requirementList");
                 //packagemod.logger.info(reqList.toString());
@@ -66,7 +66,7 @@ public class TileResearcher extends TileEntity implements ITickable {
                     ItemStack itemStack = new ItemStack(currentReq);
                     ItemRequirement.ReqKey itemKey = new ItemRequirement.ReqKey(itemStack.getItem(), itemStack.getMetadata());
                     int remaining = currentReq.getInteger("remaining");
-                    if (CraftingPackage.hasRequirement(CraftingPackage.getPackageGivenName(recipeName), itemStack, remaining)) {
+                    if (CraftingPackage.hasRequirement(CraftingPackage.getPackageGivenName(recipeName), itemStack, remaining, true)) {
                         itemToRequirement.get(itemKey).remainingRequirement = remaining;
                     }
                 }
@@ -80,6 +80,7 @@ public class TileResearcher extends TileEntity implements ITickable {
         super.writeToNBT(compound);
         if (recipeName != null) {
             compound.setString("recipeName", recipeName);
+            compound.setBoolean("recipeComplete", isItComplete);
             NBTTagCompound requirementCompound = new NBTTagCompound();
             for (int i = 0; i < requirementList.size(); i++) {
                 ItemRequirement req = requirementList.get(i);
@@ -243,7 +244,7 @@ public class TileResearcher extends TileEntity implements ITickable {
         if (ps == null) {
             ps = new PlayerData.PlayerSave(owner);
         }
-        packagemod.logger.info("receiving Made Data");
+        //packagemod.logger.info("receiving Made Data");
         ps.readMadeFromNBT(data);
         ps.readResearchedFromNBT(data);
     }

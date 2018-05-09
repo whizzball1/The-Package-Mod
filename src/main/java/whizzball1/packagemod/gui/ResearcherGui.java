@@ -1,6 +1,5 @@
 package whizzball1.packagemod.gui;
 
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderHelper;
@@ -10,7 +9,6 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import whizzball1.packagemod.core.CraftingPackage;
 import whizzball1.packagemod.core.ItemRequirement;
-import whizzball1.packagemod.data.PlayerData;
 import whizzball1.packagemod.network.PackageModPacketHandler;
 import whizzball1.packagemod.network.RecipeMessage;
 import whizzball1.packagemod.packagemod;
@@ -172,7 +170,7 @@ public class ResearcherGui extends GuiScreen {
         protected int numberOfPages;
         protected int currentPage = 1;
         protected List<String> listOfNames = new ArrayList<>();
-        protected ConcurrentHashMap<Integer, String> packageToId = new ConcurrentHashMap<>();
+        protected ConcurrentHashMap<Integer, String> idToPackage = new ConcurrentHashMap<>();
         protected ConcurrentHashMap<Integer, GuiButton> idToButton = new ConcurrentHashMap<>();
 
         protected TileResearcher te;
@@ -184,7 +182,7 @@ public class ResearcherGui extends GuiScreen {
             this.listOfNames = CraftingPackage.getListOfNames();
 
             for (String cp : listOfNames) {
-                packageToId.put(cpId, cp);
+                idToPackage.put(cpId, cp);
                 idToButton.put(cpId, new GuiButton(cpId, 10, 0, 160, 20, cp));
                 cpId++;
             }
@@ -201,8 +199,8 @@ public class ResearcherGui extends GuiScreen {
                     GuiButton button = idToButton.get(i);
                     button.x = 10 + guiLeft;
                     button.y = guiTop + 10 + 30 * (i - 1);
-                    if (!(te.hasPrereqs(packageToId.get(i)))) button.enabled = false;
-                    if (te.ps.packagesResearched.contains(packageToId.get(i))) button.enabled = false;
+                    if (!(te.hasPrereqs(idToPackage.get(i)))) button.enabled = false;
+                    if (te.ps.packagesResearched.contains(idToPackage.get(i))) button.enabled = false;
                     addButton(button);
                 }
             }
@@ -239,8 +237,8 @@ public class ResearcherGui extends GuiScreen {
                         GuiButton buttonToAdd = idToButton.get(i);
                         buttonToAdd.x = 10 + guiLeft;
                         buttonToAdd.y = guiTop + 10 + 30 * (i - (currentPage - 1) * 4 - 1);
-                        if (!(te.hasPrereqs(packageToId.get(i)))) buttonToAdd.enabled = false;
-                        if (te.ps.packagesResearched.contains(packageToId.get(i))) button.enabled = false;
+                        if (!(te.hasPrereqs(idToPackage.get(i)))) buttonToAdd.enabled = false;
+                        if (te.ps.packagesResearched.contains(idToPackage.get(i))) buttonToAdd.enabled = false;
                         addButton(buttonToAdd);
                     }
                 }
@@ -263,8 +261,8 @@ public class ResearcherGui extends GuiScreen {
                         GuiButton buttonToAdd = idToButton.get(i);
                         buttonToAdd.x = 10 + guiLeft;
                         buttonToAdd.y = guiTop + 10 + 30 * (i - (currentPage - 1) * 4 - 1);
-                        if (!(te.hasPrereqs(packageToId.get(i)))) buttonToAdd.enabled = false;
-                        if (te.ps.packagesResearched.contains(packageToId.get(i))) button.enabled = false;
+                        if (!(te.hasPrereqs(idToPackage.get(i)))) buttonToAdd.enabled = false;
+                        if (te.ps.packagesResearched.contains(idToPackage.get(i))) buttonToAdd.enabled = false;
                         addButton(buttonToAdd);
                     }
                 }
@@ -276,7 +274,7 @@ public class ResearcherGui extends GuiScreen {
                 addButton(leftButton);
                 addButton(rightButton);
             } else if (button.id > 0) {
-                String packageName = packageToId.get(button.id);
+                String packageName = idToPackage.get(button.id);
                 te.changeRecipe(packageName);
                 PackageModPacketHandler.INSTANCE.sendToServer(new RecipeMessage(packageName, te.getPos()));
                 FMLCommonHandler.instance().showGuiScreen(new ResearcherGui(te));

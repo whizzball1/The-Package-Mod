@@ -67,7 +67,7 @@ public class TilePackager extends TileEntity implements ITickable {
                     ItemStack itemStack = new ItemStack(currentReq);
                     ItemRequirement.ReqKey itemKey = new ItemRequirement.ReqKey(itemStack.getItem(), itemStack.getMetadata());
                     int remaining = currentReq.getInteger("remaining");
-                    if (CraftingPackage.hasRequirement(CraftingPackage.getPackageGivenName(recipeName), itemStack, remaining)) {
+                    if (CraftingPackage.hasRequirement(CraftingPackage.getPackageGivenName(recipeName), itemStack, remaining, false)) {
                         itemToRequirement.get(itemKey).remainingRequirement = remaining;
                     }
                 }
