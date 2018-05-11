@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import whizzball1.packagemod.data.PlayerData;
+import whizzball1.packagemod.tile.TilePackager;
 import whizzball1.packagemod.tile.TileResearcher;
 
 public class SendPlayerSaveMessage implements IMessage {
@@ -53,6 +54,16 @@ public class SendPlayerSaveMessage implements IMessage {
                     } else if (message.requestId == 1) {
                         Minecraft.getMinecraft().addScheduledTask(() -> {
                             ((TileResearcher) te).receiveMadeData(message.data);
+                        });
+                    }
+                } else if (te instanceof TilePackager) {
+                    if (message.requestId == 0) {
+                        Minecraft.getMinecraft().addScheduledTask(() -> {
+                            ((TilePackager) te).setOwner(message.data);
+                        });
+                    } else if (message.requestId == 1) {
+                        Minecraft.getMinecraft().addScheduledTask(() -> {
+                            ((TilePackager) te).receiveMadeData(message.data);
                         });
                     }
                 }

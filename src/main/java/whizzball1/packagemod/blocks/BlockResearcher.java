@@ -30,6 +30,7 @@ public class BlockResearcher extends Block implements ITileEntityProvider, IHasM
         setRegistryName(name);
         setUnlocalizedName(packagemod.MODID + "." + name);
         setCreativeTab(PackageCreativeTab.INSTANCE);
+        this.lightOpacity = 0;
         ModRegistry.BLOCKS.add(this);
         ModRegistry.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
     }
@@ -58,6 +59,11 @@ public class BlockResearcher extends Block implements ITileEntityProvider, IHasM
             //player.openGui(packagemod.INSTANCE, GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;
+    }
+
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
     }
 
 }

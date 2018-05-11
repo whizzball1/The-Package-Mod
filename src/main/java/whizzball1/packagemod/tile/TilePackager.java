@@ -23,9 +23,7 @@ import whizzball1.packagemod.core.CraftingPackage;
 import whizzball1.packagemod.core.ItemRequirement;
 import whizzball1.packagemod.data.PlayerData;
 import whizzball1.packagemod.data.WorldData;
-import whizzball1.packagemod.network.PackageModPacketHandler;
-import whizzball1.packagemod.network.RecipeMessage;
-import whizzball1.packagemod.network.ReqChangedMessage;
+import whizzball1.packagemod.network.*;
 import whizzball1.packagemod.packagemod;
 
 import javax.annotation.Nonnull;
@@ -47,6 +45,7 @@ public class TilePackager extends TileEntity implements ITickable {
     public List<ItemRequirement> requirementList = new ArrayList<>();
     public ConcurrentHashMap<ItemRequirement.ReqKey, ItemRequirement> itemToRequirement = new ConcurrentHashMap<>();
     private UUID owner;
+    public PlayerData.PlayerSave ps;
 
     public TilePackager() {
         handler = new PackagerItemHandler(this);
@@ -124,6 +123,15 @@ public class TilePackager extends TileEntity implements ITickable {
                     PackageModPacketHandler.INSTANCE.sendToAll(new ReqChangedMessage(i, this.getPos()));
                 }
             }
+            if (ticks % 100 == 0) {
+                ticks = 0;
+                NBTTagCompound compound = new NBTTagCompound();
+                if (owner != null) {
+                    PlayerData.PlayerSave tempPs = PlayerData.getDataFromPlayer(world, owner);
+                    tempPs.writeResearchedToNBT(compound);
+                    PackageModPacketHandler.INSTANCE.sendToAll(new SendPlayerSaveMessage(compound, this.getPos(), 1));
+                } else packagemod.logger.info("oops the ps is null on the server why idk");
+            }
         }
     }
 
@@ -192,6 +200,19 @@ public class TilePackager extends TileEntity implements ITickable {
 
     public void setOwner(UUID id) {
         if (this.owner == null) {this.owner = id;}
+        if (world != null) {
+            if (world.isRemote) {
+                if (this.ps == null)
+                    PackageModPacketHandler.INSTANCE.sendToServer(new RequestPlayerSaveMessage(this.getPos(), id));
+            }
+        }
+        this.markDirty();
+    }
+
+    public void setOwner(NBTTagCompound data) {
+        PlayerData.PlayerSave ps = new PlayerData.PlayerSave(this.owner);
+        ps.readFromNBT(data);
+        this.ps = ps;
         this.markDirty();
     }
 
@@ -204,6 +225,22 @@ public class TilePackager extends TileEntity implements ITickable {
             data.packagesMade.put(name, madeInt);
             WorldData.get(world, false).markDirty();
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void receiveMadeData(NBTTagCompound data) {
+        if (ps == null) {
+            ps = new PlayerData.PlayerSave(owner);
+        }
+        //packagemod.logger.info("receiving Made Data");
+        ps.readResearchedFromNBT(data);
+    }
+
+    public boolean hasResearch(String s) {
+        //packagemod.logger.info("does it have prereqs?");
+        //packagemod.logger.info(s);
+        if (!(ps.packagesResearched.contains(s))) return false;
+        return true;
     }
 
     @Override

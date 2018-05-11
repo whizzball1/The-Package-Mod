@@ -38,7 +38,6 @@ public class TileResearcher extends TileEntity implements ITickable {
     public List<ItemRequirement> requirementList = new ArrayList<>();
     public ConcurrentHashMap<ItemRequirement.ReqKey, ItemRequirement> itemToRequirement = new ConcurrentHashMap<>();
     private UUID owner;
-    private WorldData wd;
     public PlayerData.PlayerSave ps;
     private int ticks = 0;
     private boolean isTherePS = true;
@@ -151,10 +150,10 @@ public class TileResearcher extends TileEntity implements ITickable {
 
     public void setResearched(String name) {
         if (world != null) if (!(world.isRemote)) {
-            packagemod.logger.info(world.provider.getDimension());
+            //packagemod.logger.info(world.provider.getDimension());
             PlayerData.PlayerSave data = PlayerData.getDataFromPlayer(world, owner);
             if (!(data.packagesResearched.contains(name))) data.packagesResearched.add(name);
-            packagemod.logger.info(data.packagesResearched.toString());
+            //packagemod.logger.info(data.packagesResearched.toString());
             WorldData.get(world, false).markDirty();
         }
     }

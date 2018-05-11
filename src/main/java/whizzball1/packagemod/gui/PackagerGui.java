@@ -229,6 +229,7 @@ public class PackagerGui extends GuiScreen {
                         GuiButton buttonToAdd = idToButton.get(i);
                         buttonToAdd.x = 10 + guiLeft;
                         buttonToAdd.y = guiTop + 10 + 30 * (i - (currentPage - 1) * 4 - 1);
+                        if (!(te.hasResearch(packageToId.get(i)))) buttonToAdd.enabled = false;
                         addButton(buttonToAdd);
                     }
                 }
@@ -251,6 +252,7 @@ public class PackagerGui extends GuiScreen {
                         GuiButton buttonToAdd = idToButton.get(i);
                         buttonToAdd.x = 10 + guiLeft;
                         buttonToAdd.y = guiTop + 10 + 30 * (i - (currentPage - 1) * 4 - 1);
+                        if (!(te.hasResearch(packageToId.get(i)))) buttonToAdd.enabled = false;
                         addButton(buttonToAdd);
                     }
                 }
@@ -279,6 +281,7 @@ public class PackagerGui extends GuiScreen {
                     GuiButton button = idToButton.get(i);
                     button.x = 10 + guiLeft;
                     button.y = guiTop + 10 + 30 * (i - 1);
+                    if (!(te.hasResearch(packageToId.get(i)))) button.enabled = false;
                     addButton(button);
                 }
             }

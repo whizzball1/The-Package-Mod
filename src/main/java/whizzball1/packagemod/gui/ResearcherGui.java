@@ -56,7 +56,7 @@ public class ResearcherGui extends GuiScreen {
         GuiButton leftButton = new GuiButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-");
         leftButton.enabled = false;
         GuiButton rightButton = new GuiButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->");
-        if (te.requirementList.size() <= 4) rightButton.enabled = false;
+        if (te.requirementList.size() + te.packList.size() <= 4) rightButton.enabled = false;
         addButton(leftButton);
         addButton(rightButton);
     }
@@ -111,6 +111,10 @@ public class ResearcherGui extends GuiScreen {
                     CraftingPackage.PackStack p = te.packList.get(i);
                     drawString(fontRenderer, p.packName + " * " + Integer.toString(getRemainingPack(p)), guiLeft + 15, guiTop + 20 + (te.requirementList.size() % 4 + 1 + i) * 20, 0xC6C6C6);
                 }
+            } else if (page > getPackPage()) {
+                int toIterate;
+                int beginId = packsOnFirstPage + (page - getPackPage() - 1) * 4;
+                if (te.packList.size() - packsOnFirstPage > 4) toIterate = 4;
             }
         }
     }
@@ -149,7 +153,37 @@ public class ResearcherGui extends GuiScreen {
         if (button.id == -1) {
             mc.displayGuiScreen(new ResearchSelectGui(this.te));
         } else if (button.id == 1) {
+            page++;
+            buttonList.clear();
+            addButton(new GuiButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select"));
+            int pageSize = te.requirementList.size() - (page * 4);
+            if (pageSize > 4) {
+                reqsOnPage = 4;
+            } else if (pageSize > 0) {
+                reqsOnPage = pageSize;
+            } else reqsOnPage = 0;
+            GuiButton rightButton = new GuiButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->");
+            addButton(rightButton);
+            GuiButton leftButton = new GuiButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-");
+            if (page == 0) leftButton.enabled = false;
+            addButton(leftButton);
         } else if (button.id == 2) {
+            page++;
+            buttonList.clear();
+            addButton(new GuiButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select"));
+            int pageSize = te.requirementList.size() - (page * 4);
+            if (pageSize > 4) {
+                reqsOnPage = 4;
+            } else if (pageSize > 0) {
+                reqsOnPage = pageSize;
+            } else reqsOnPage = 0;
+            GuiButton leftButton = new GuiButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-");
+            addButton(leftButton);
+            GuiButton rightButton = new GuiButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->");
+            if (te.requirementList.size() + te.packList.size() <= page * 4) {
+                rightButton.enabled = false;
+            }
+            addButton(rightButton);
         }
     }
 

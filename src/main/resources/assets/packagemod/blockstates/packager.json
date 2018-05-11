@@ -1,13 +1,11 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "model": "cube_all",
-    "textures": {
-      "all": "packagemod:blocks/packager"
-    }
+    "model": "packagemod:packager"
   },
   "variants": {
     "normal": [{}],
-    "inventory": [{}]
+    "inventory": [{
+      "model": "packagemod:packager"}]
   }
 }

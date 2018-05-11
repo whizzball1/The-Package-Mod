@@ -17,6 +17,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import whizzball1.packagemod.client.IHasModel;
 import whizzball1.packagemod.core.PackageCreativeTab;
 import whizzball1.packagemod.gui.PackagerGui;
@@ -31,6 +32,7 @@ public class BlockPackager extends Block implements ITileEntityProvider, IHasMod
         setRegistryName(name);
         setUnlocalizedName(packagemod.MODID + "." + name);
         setCreativeTab(PackageCreativeTab.INSTANCE);
+        this.lightOpacity = 0;
         ModRegistry.BLOCKS.add(this);
         ModRegistry.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
     }
@@ -58,5 +60,10 @@ public class BlockPackager extends Block implements ITileEntityProvider, IHasMod
     @Override
     public void registerModels() {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+    }
+
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
     }
 }
