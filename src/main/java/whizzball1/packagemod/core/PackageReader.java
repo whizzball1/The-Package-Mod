@@ -24,9 +24,11 @@ public class PackageReader {
             packagemod.logger.log(Level.ERROR, "Problem accessing Package Adder", e);
             e.printStackTrace();;
         }
-        for (int i=0; i<packages.size(); i++) {
-            deserialise(packages.get(i).getAsJsonObject());
-        }
+        if (packages != null) {
+            for (int i = 0; i < packages.size(); i++) {
+                deserialise(packages.get(i).getAsJsonObject());
+            }
+        } else packagemod.logger.error("There are no packages to load!");
     }
 
     public static void load() throws IOException {
