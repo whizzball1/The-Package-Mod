@@ -1,6 +1,5 @@
 package whizzball1.packagemod.init;
 
-import com.sun.deploy.security.ruleset.BlockRule;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent.Register;
