@@ -29,6 +29,10 @@ public class CommandSetResearched extends CommandBase {
         return "commands.packagemod.packagesetresearched.usage";
     }
 
+    public int getRequiredPermissionLevel() {
+        return 2;
+    }
+
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         boolean trueOrFalse;
