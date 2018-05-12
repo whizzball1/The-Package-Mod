@@ -57,12 +57,7 @@ public class PackageReader {
         ItemRequirement packageResult = new ItemRequirement(resultItem, resultMeta, resultNumber);
         JsonArray ingredientArray = packageJson.get("ingredients").getAsJsonArray();
         JsonArray researchArray = packageJson.get("research").getAsJsonArray();
-        if (ingredientArray.size() > 9) {
-            packagemod.logger.log(Level.ERROR, packageName + " has more than 9 ingredients. Did not register package.");
-        } else {
-            packagemod.craftingPackageList.add(new CraftingPackage(packageName, packageId, packageNumber, packageResult, ingredientArray, researchArray));
-            packagemod.logger.log(Level.INFO, "Successfully registered package " + packageName);
-        }
-
+        packagemod.craftingPackageList.add(new CraftingPackage(packageName, packageId, packageNumber, packageResult, ingredientArray, researchArray));
+        packagemod.logger.log(Level.INFO, "Successfully registered package " + packageName);
     }
 }

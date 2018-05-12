@@ -27,7 +27,7 @@ public class ModRegistry {
     public static final Item packageReader = new ItemPackageReader("packagereader");
     public static final Item packageItem = new ItemPackage("packageitem");
 
-    public static final Block packageFrame = new BlockPackageFrame("packageframe");
+    //public static final Block packageFrame = new BlockPackageFrame("packageframe");
     public static final Block packager = new BlockPackager("packager");
     public static final Block unpackager = new BlockUnpackager("unpackager");
     public static final Block researcher = new BlockResearcher("researcher");
