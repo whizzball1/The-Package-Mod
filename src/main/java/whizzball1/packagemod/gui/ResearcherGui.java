@@ -114,7 +114,7 @@ public class ResearcherGui extends GuiScreen {
             } else if (page > getPackPage()) {
                 int toIterate;
                 int beginId = packsOnFirstPage + (page - getPackPage() - 1) * 4;
-                if (te.packList.size() - packsOnFirstPage > 4) toIterate = 4;
+                if (te.packList.size() - packsOnFirstPage - (page - getPackPage() - 1) * 4 > 4) toIterate = 4;
             }
         }
     }
