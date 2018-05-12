@@ -114,7 +114,13 @@ public class ResearcherGui extends GuiScreen {
             } else if (page > getPackPage()) {
                 int toIterate;
                 int beginId = packsOnFirstPage + (page - getPackPage() - 1) * 4;
-                if (te.packList.size() - packsOnFirstPage - (page - getPackPage() - 1) * 4 > 4) toIterate = 4;
+                if (te.packList.size() - beginId > 4) {
+                    toIterate = 4;
+                } else toIterate = te.packList.size() - beginId;
+                for (int i = beginId; i < beginId + toIterate; i++) {
+                    CraftingPackage.PackStack p = te.packList.get(i);
+                    drawString(fontRenderer, p.packName + " * " + Integer.toString(getRemainingPack(p)), guiLeft + 15, guiTop + 20 + (i - beginId) * 20, 0xC6C6C6);
+                }
             }
         }
     }
