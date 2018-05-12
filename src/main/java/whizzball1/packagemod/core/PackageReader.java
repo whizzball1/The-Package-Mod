@@ -31,11 +31,15 @@ public class PackageReader {
         } else packagemod.logger.error("There are no packages to load!");
     }
 
-    public static void load() throws IOException {
-        data = packagemod.gson.fromJson(new BufferedReader(new FileReader(dataFile)), JsonArray.class).getAsJsonArray();
+    public static void load() throws IOException, NullPointerException {
+        data = packagemod.gson.fromJson(new BufferedReader(new FileReader(dataFile)), JsonArray.class);
+        try {
+            data.getAsJsonArray();
+            packages = data.get(0).getAsJsonObject().get("packages").getAsJsonArray();
+        } catch (java.lang.NullPointerException ex) {
+        }
         //System.out.println(data.get(0).toString());
         //System.out.println(data.get(0).getAsJsonObject().get("packages").toString());
-        packages = data.get(0).getAsJsonObject().get("packages").getAsJsonArray();
     }
 
     public static void deserialise(JsonObject packageJson) {
