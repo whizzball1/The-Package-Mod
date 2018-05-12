@@ -1,5 +1,8 @@
 item.packagemod.packagereader.name=Package Reader
 item.packagemod.packageitem.name=Package
+tile.packagemod.researcher.name=Researcher
+tile.packagemod.unpackager.name=Unpackager
+tile.packagemod.packager.name=Packager
 
 itemGroup.packagemod=The Package Mod
 

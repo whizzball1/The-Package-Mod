@@ -100,7 +100,7 @@ public class TilePackager extends TileEntity implements ITickable {
 
     @Override
     public NBTTagCompound getUpdateTag() {
-        packagemod.logger.info("Getting update tag for client");
+        //packagemod.logger.info("Getting update tag for client");
         return this.writeToNBT(new NBTTagCompound());
     }
 
@@ -130,7 +130,7 @@ public class TilePackager extends TileEntity implements ITickable {
                     PlayerData.PlayerSave tempPs = PlayerData.getDataFromPlayer(world, owner);
                     tempPs.writeResearchedToNBT(compound);
                     PackageModPacketHandler.INSTANCE.sendToAll(new SendPlayerSaveMessage(compound, this.getPos(), 1));
-                } else packagemod.logger.info("oops the ps is null on the server why idk");
+                } // else packagemod.logger.info("oops the ps is null on the server why idk");
             }
         }
     }
