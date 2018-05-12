@@ -1,0 +1,95 @@
+[
+  {
+    "packages": [
+      {
+        "name": "Piston Pack 1",
+        "id": "piston_pack_1",
+        "resultItem": ["minecraft:piston", 10, 0],
+        "packageNumber": 1,
+        "ingredients": [
+          ["minecraft:iron_ingot", 7, 0],
+          ["minecraft:redstone", 7, 0]
+        ],
+        "research": [
+          ["item", "minecraft:piston", 50, 0]
+        ]
+      },
+      {
+        "name": "Piston Pack 2",
+        "id": "piston_pack_2",
+        "resultItem": ["minecraft:piston", 20, 0],
+        "packageNumber": 2,
+        "ingredients": [
+          ["minecraft:iron_ingot", 10, 0],
+          ["minecraft:redstone", 10, 0]
+        ],
+        "research": [
+          ["item", "minecraft:piston", 100, 0],
+          ["pack", "Piston Pack 1", 10],
+          ["prereq", "Piston Pack 1"]
+        ]
+      },
+      {
+        "name": "Piston Pack 3",
+        "id": "piston_pack_3",
+        "resultItem": ["minecraft:piston", 40, 0],
+        "packageNumber": 3,
+        "ingredients": [
+          ["minecraft:iron_ingot", 15, 0],
+          ["minecraft:redstone", 15, 0],
+          ["minecraft:planks", 15, 1],
+          ["minecraft:cobblestone", 15, 0]
+        ],
+        "research": [
+          ["item", "minecraft:piston", 200, 0],
+          ["pack", "Piston Pack 2", 20],
+          ["prereq", "Piston Pack 2"]
+        ]
+      },
+      {
+        "name": "Anvil Pack 1",
+        "id": "anvil_pack_1",
+        "resultItem": ["minecraft:anvil", 5],
+        "packageNumber": 1,
+        "ingredients": [
+          ["minecraft:iron_block", 12, 0],
+          ["minecraft:iron_ingot", 16, 0]
+        ],
+        "research": [
+          ["item", "minecraft:anvil", 25, 0]
+        ]
+      },
+      {
+        "name": "Anvil Pack 2",
+        "id": "anvil_pack_2",
+        "resultItem": ["minecraft:anvil", 10],
+        "packageNumber": 2,
+        "ingredients": [
+          ["minecraft:iron_block", 24, 0],
+          ["minecraft:iron_ingot", 32, 0]
+        ],
+        "research": [
+          ["item", "minecraft:anvil", 50, 0],
+          ["pack", "Anvil Pack 1", 10],
+          ["prereq", "Anvil Pack 1"]
+        ]
+      },
+      {
+        "name": "Ender Chest Pack 1",
+        "id": "endchest_pack_1",
+        "resultItem": ["minecraft:ender_chest", 16],
+        "packageNumber": 1,
+        "ingredients": [
+          ["minecraft:ender_pearl", 4, 0],
+          ["minecraft:blaze_powder", 4, 0],
+          ["minecraft:obsidian", 32, 0],
+          ["minecraft:chest", 16, 0],
+          ["minecraft:end_stone", 16, 0]
+        ],
+        "research": [
+          ["item", "minecraft:ender_chest", 4, 0]
+        ]
+      }
+    ]
+  }
+]
