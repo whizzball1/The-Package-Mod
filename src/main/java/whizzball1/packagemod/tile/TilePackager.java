@@ -118,19 +118,18 @@ public class TilePackager extends TileEntity implements ITickable {
         if (!(world.isRemote)) {
             ticks++;
             if (ticks % 20 == 0) {
-                ticks = 0;
                 for (ItemRequirement i : requirementList) {
                     PackageModPacketHandler.INSTANCE.sendToAll(new ReqChangedMessage(i, this.getPos()));
                 }
             }
             if (ticks % 100 == 0) {
-                ticks = 0;
                 NBTTagCompound compound = new NBTTagCompound();
                 if (owner != null) {
                     PlayerData.PlayerSave tempPs = PlayerData.getDataFromPlayer(world, owner);
                     tempPs.writeResearchedToNBT(compound);
                     PackageModPacketHandler.INSTANCE.sendToAll(new SendPlayerSaveMessage(compound, this.getPos(), 1));
                 } // else packagemod.logger.info("oops the ps is null on the server why idk");
+                ticks = 0;
             }
         }
     }

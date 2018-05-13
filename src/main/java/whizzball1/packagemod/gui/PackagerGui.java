@@ -62,9 +62,9 @@ public class PackagerGui extends GuiScreen {
         this.guiTop = (this.height - this.ySize) / 2;
         this.buttonList.clear();
         addButton(new GuiFacButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select", 0));
-        GuiButton leftButton = new GuiButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-");
+        GuiButton leftButton = new GuiFacButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-", 1);
         leftButton.enabled = false;
-        GuiButton rightButton = new GuiButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->");
+        GuiButton rightButton = new GuiFacButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->", 1);
         if (te.requirementList.size() <= 4) rightButton.enabled = false;
         addButton(leftButton);
         addButton(rightButton);
@@ -124,26 +124,26 @@ public class PackagerGui extends GuiScreen {
         } else if (button.id == 1) {
             page--;
             buttonList.clear();
-            addButton(new GuiButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select"));
+            addButton(new GuiFacButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select", 0));
             int pageSize = te.requirementList.size() - (page * 4);
             if (pageSize < 4) {
                 reqsOnPage = pageSize;
             } else reqsOnPage = 4;
-            GuiButton leftButton = new GuiButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-");
-            GuiButton rightButton = new GuiButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->");
+            GuiButton leftButton = new GuiFacButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-", 1);
+            GuiButton rightButton = new GuiFacButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->", 1);
             if (page == 0) leftButton.enabled = false;
             addButton(leftButton);
             addButton(rightButton);
         } else if (button.id == 2) {
             page++;
             buttonList.clear();
-            addButton(new GuiButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select"));
+            addButton(new GuiFacButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select", 0));
             int pageSize = te.requirementList.size() - (page * 4);
             if (pageSize < 4) {
                 reqsOnPage = pageSize;
             } else reqsOnPage = 4;
-            GuiButton leftButton = new GuiButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-");
-            GuiButton rightButton = new GuiButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->");
+            GuiButton leftButton = new GuiFacButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-", 1);
+            GuiButton rightButton = new GuiFacButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->", 1);
             if (pageSize <= 4) rightButton.enabled = false;
             addButton(leftButton);
             addButton(rightButton);
@@ -202,7 +202,7 @@ public class PackagerGui extends GuiScreen {
         protected ConcurrentHashMap<Integer, String> packageToId = new ConcurrentHashMap<Integer, String>();
         protected ConcurrentHashMap<Integer, GuiButton> idToButton = new ConcurrentHashMap<Integer, GuiButton>();
 
-        private static final ResourceLocation background = new ResourceLocation(packagemod.MODID, "textures/gui/packager.png");
+        private static final ResourceLocation background = new ResourceLocation(packagemod.MODID, "textures/gui/180x152.png");
         public PackageSelectGui(TilePackager te) {
             xSize = WIDTH;
             ySize = HEIGHT;
@@ -211,7 +211,7 @@ public class PackagerGui extends GuiScreen {
             //packagemod.logger.info("list of names mod = " + listOfNames.size() % 4);
             for (String cp : listOfNames) {
                 packageToId.put(cpId, cp);
-                idToButton.put(cpId, new GuiButton(cpId, 10, 0, 160, 20, cp));
+                idToButton.put(cpId, new GuiFacButton(cpId, 10, 0, 160, 20, cp, 2));
                 cpId++;
             }
             this.te = te;
@@ -232,14 +232,11 @@ public class PackagerGui extends GuiScreen {
                         addButton(buttonToAdd);
                     }
                 }
-                GuiButton leftButton = new GuiButton(-1, guiLeft + 10, guiTop + 125, 20, 20, "<-");
+                GuiButton leftButton = new GuiFacButton(-1, guiLeft + 10, guiTop + 125, 20, 20, "<-", 1);
                 if (currentPage > 1) {
                     leftButton.enabled = true;
                 } else leftButton.enabled = false;
-                GuiButton rightButton = new GuiButton(-2, guiLeft + 150, guiTop + 125, 20, 20, "->");
-                if (listOfNames.size() > currentPage * 4) {
-                    rightButton.enabled = true;
-                } else rightButton.enabled = false;
+                GuiButton rightButton = new GuiFacButton(-2, guiLeft + 150, guiTop + 125, 20, 20, "->", 1);
                 addButton(leftButton);
                 addButton(rightButton);
 
@@ -255,8 +252,8 @@ public class PackagerGui extends GuiScreen {
                         addButton(buttonToAdd);
                     }
                 }
-                GuiButton leftButton = new GuiButton(-1, guiLeft + 10, guiTop + 125, 20, 20, "<-");
-                GuiButton rightButton = new GuiButton(-2, guiLeft + 150, guiTop + 125, 20, 20, "->");
+                GuiButton leftButton = new GuiFacButton(-1, guiLeft + 10, guiTop + 125, 20, 20, "<-", 1);
+                GuiButton rightButton = new GuiFacButton(-2, guiLeft + 150, guiTop + 125, 20, 20, "->", 1);
                 if (listOfNames.size() > currentPage * 4) {
                     rightButton.enabled = true;
                 } else rightButton.enabled = false;
@@ -284,9 +281,9 @@ public class PackagerGui extends GuiScreen {
                     addButton(button);
                 }
             }
-            GuiButton leftButton = new GuiButton(-1, guiLeft + 10, guiTop + 125, 20, 20, "<-");
+            GuiButton leftButton = new GuiFacButton(-1, guiLeft + 10, guiTop + 125, 20, 20, "<-", 1);
             leftButton.enabled = false;
-            GuiButton rightButton = new GuiButton(-2, guiLeft + 150, guiTop + 125, 20, 20, "->");
+            GuiButton rightButton = new GuiFacButton(-2, guiLeft + 150, guiTop + 125, 20, 20, "->", 1);
             if (listOfNames.size() > 4) {
                 rightButton.enabled = true;
             } else rightButton.enabled = false;

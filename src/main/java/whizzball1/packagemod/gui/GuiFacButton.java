@@ -9,11 +9,13 @@ import whizzball1.packagemod.packagemod;
 
 public class GuiFacButton extends GuiButton {
 
-    private static ResourceLocation button;
-    private static ResourceLocation buttonHovered;
-    private static ResourceLocation buttonDisabled;
+    private ResourceLocation button;
+    private ResourceLocation buttonHovered;
+    private ResourceLocation buttonDisabled;
     /**
      * Types: 0 = 50x20
+     * 1 = 20x20
+     * 2 = 160x20
      */
 
     public GuiFacButton(int buttonId, int x, int y, int widthIn, int heightIn, String buttonText, int type)
@@ -24,6 +26,17 @@ public class GuiFacButton extends GuiButton {
                 this.button = new ResourceLocation(packagemod.MODID, "textures/gui/button/50x20b.png");
                 this.buttonHovered = new ResourceLocation(packagemod.MODID, "textures/gui/button/50x20h.png");
                 this.buttonDisabled = new ResourceLocation(packagemod.MODID, "textures/gui/button/50x20d.png");
+                break;
+            case 1:
+                this.button = new ResourceLocation(packagemod.MODID, "textures/gui/button/20x20b.png");
+                this.buttonHovered = new ResourceLocation(packagemod.MODID, "textures/gui/button/20x20h.png");
+                this.buttonDisabled = new ResourceLocation(packagemod.MODID, "textures/gui/button/20x20d.png");
+                break;
+            case 2:
+                this.button = new ResourceLocation(packagemod.MODID, "textures/gui/button/160x20b.png");
+                this.buttonHovered = new ResourceLocation(packagemod.MODID, "textures/gui/button/160x20h.png");
+                this.buttonDisabled = new ResourceLocation(packagemod.MODID, "textures/gui/button/160x20d.png");
+                break;
         }
     }
 
