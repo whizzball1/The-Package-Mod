@@ -35,8 +35,8 @@ public class PackagerGui extends GuiScreen {
     public int page;
     public int reqsOnPage;
 
-    private static final ResourceLocation background = new ResourceLocation(packagemod.MODID, "textures/gui/packager.png");
-    private static final ResourceLocation textBackground = new ResourceLocation(packagemod.MODID, "textures/gui/packagertext.png");
+    private static final ResourceLocation background = new ResourceLocation(packagemod.MODID, "textures/gui/180x152.png");
+    private static final ResourceLocation textBackground = new ResourceLocation(packagemod.MODID, "textures/gui/160x112.png");
     private static final ResourceLocation slotTexture = new ResourceLocation(packagemod.MODID, "textures/gui/slot.png");
 
     protected TilePackager te;
@@ -61,7 +61,7 @@ public class PackagerGui extends GuiScreen {
         this.guiLeft = (this.width - this.xSize) / 2;
         this.guiTop = (this.height - this.ySize) / 2;
         this.buttonList.clear();
-        addButton(new GuiButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select"));
+        addButton(new GuiFacButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select", 0));
         GuiButton leftButton = new GuiButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-");
         leftButton.enabled = false;
         GuiButton rightButton = new GuiButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->");
