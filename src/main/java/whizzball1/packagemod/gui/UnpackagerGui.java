@@ -20,8 +20,8 @@ public class UnpackagerGui extends GuiScreen {
     protected int guiLeft;
     protected int guiTop;
 
-    private static final ResourceLocation background = new ResourceLocation(packagemod.MODID, "textures/gui/packager.png");
-    private static final ResourceLocation textBackground = new ResourceLocation(packagemod.MODID, "textures/gui/packagertext.png");
+    private static final ResourceLocation background = new ResourceLocation(packagemod.MODID, "textures/gui/110x110.png");
+    private static final ResourceLocation textBackground = new ResourceLocation(packagemod.MODID, "textures/gui/90x70.png");
 
     protected TileUnpackager te;
 
@@ -36,7 +36,7 @@ public class UnpackagerGui extends GuiScreen {
         super.initGui();
         this.guiLeft = (this.width - this.xSize) / 2;
         this.guiTop = (this.height - this.ySize) / 2;
-        addButton(new GuiButton(0, guiLeft + 10, guiTop + 5, 90, 20, "Remove Package"));
+        addButton(new GuiFacButton(0, guiLeft + 10, guiTop + 5, 90, 20, "Remove Package", 4));
         updateButton();
     }
 

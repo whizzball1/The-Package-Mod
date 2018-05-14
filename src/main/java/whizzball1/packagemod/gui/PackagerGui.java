@@ -211,7 +211,7 @@ public class PackagerGui extends GuiScreen {
             //packagemod.logger.info("list of names mod = " + listOfNames.size() % 4);
             for (String cp : listOfNames) {
                 packageToId.put(cpId, cp);
-                idToButton.put(cpId, new GuiFacButton(cpId, 10, 0, 160, 20, cp, 2));
+                idToButton.put(cpId, new GuiFacItemButton(cpId, 10, 0, 50, 50, cp, 3));
                 cpId++;
             }
             this.te = te;
@@ -226,8 +226,25 @@ public class PackagerGui extends GuiScreen {
                 for (int i = currentPage * 4 - 3; i <= currentPage * 4; i++) {
                     if (idToButton.get(i) != null) {
                         GuiButton buttonToAdd = idToButton.get(i);
-                        buttonToAdd.x = 10 + guiLeft;
-                        buttonToAdd.y = guiTop + 10 + 30 * (i - (currentPage - 1) * 4 - 1);
+                        int partOfPage = i - (currentPage - 1) * 4 - 1;
+                        switch (partOfPage % 2) {
+                            case 0:
+                                buttonToAdd.x = 30 + guiLeft;
+                                if (partOfPage == 0) {
+                                    buttonToAdd.y = guiTop + 10;
+                                } else if (partOfPage == 2) {
+                                    buttonToAdd.y = guiTop + 70;
+                                }
+                                break;
+                            case 1:
+                                buttonToAdd.x = 100 + guiLeft;
+                                if (partOfPage == 1) {
+                                    buttonToAdd.y = guiTop + 10;
+                                } else if (partOfPage == 3) {
+                                    buttonToAdd.y = guiTop + 70;
+                                }
+                                break;
+                        }
                         if (!(te.hasResearch(packageToId.get(i)))) buttonToAdd.enabled = false;
                         addButton(buttonToAdd);
                     }
@@ -246,8 +263,25 @@ public class PackagerGui extends GuiScreen {
                 for (int i = currentPage * 4 - 3; i <= currentPage * 4; i++) {
                     if (idToButton.get(i) != null) {
                         GuiButton buttonToAdd = idToButton.get(i);
-                        buttonToAdd.x = 10 + guiLeft;
-                        buttonToAdd.y = guiTop + 10 + 30 * (i - (currentPage - 1) * 4 - 1);
+                        int partOfPage = i - (currentPage - 1) * 4 - 1;
+                        switch (partOfPage % 2) {
+                            case 0:
+                                buttonToAdd.x = 30 + guiLeft;
+                                if (partOfPage == 0) {
+                                    buttonToAdd.y = guiTop + 10;
+                                } else if (partOfPage == 2) {
+                                    buttonToAdd.y = guiTop + 70;
+                                }
+                                break;
+                            case 1:
+                                buttonToAdd.x = 100 + guiLeft;
+                                if (partOfPage == 1) {
+                                    buttonToAdd.y = guiTop + 10;
+                                } else if (partOfPage == 3) {
+                                    buttonToAdd.y = guiTop + 70;
+                                }
+                                break;
+                        }
                         if (!(te.hasResearch(packageToId.get(i)))) buttonToAdd.enabled = false;
                         addButton(buttonToAdd);
                     }
@@ -269,14 +303,30 @@ public class PackagerGui extends GuiScreen {
 
         @Override
         public void initGui() {
-            packagemod.logger.info("Initiating GUI");
             this.guiLeft = (this.width - this.xSize) / 2;
             this.guiTop = (this.height - this.ySize) / 2;
             for (int i = 1; i <= 4; i++) {
                 if (idToButton.get(i) != null) {
                     GuiButton button = idToButton.get(i);
-                    button.x = 10 + guiLeft;
-                    button.y = guiTop + 10 + 30 * (i - 1);
+                    int partOfPage = i - (currentPage - 1) * 4 - 1;
+                    switch (partOfPage % 2) {
+                        case 0:
+                            button.x = 30 + guiLeft;
+                            if (partOfPage == 0) {
+                                button.y = guiTop + 10;
+                            } else if (partOfPage == 2) {
+                                button.y = guiTop + 70;
+                            }
+                            break;
+                        case 1:
+                            button.x = 100 + guiLeft;
+                            if (partOfPage == 1) {
+                                button.y = guiTop + 10;
+                            } else if (partOfPage == 3) {
+                                button.y = guiTop + 70;
+                            }
+                            break;
+                    }
                     if (!(te.hasResearch(packageToId.get(i)))) button.enabled = false;
                     addButton(button);
                 }
@@ -307,6 +357,7 @@ public class PackagerGui extends GuiScreen {
         @Override
         public void drawScreen(int mouseX, int mouseY, float partialTicks) {
             drawBackground(0);
+            RenderHelper.enableGUIStandardItemLighting();
             super.drawScreen(mouseX, mouseY, partialTicks);
             this.drawCenteredString(mc.fontRenderer, new TextComponentTranslation("packagemod.page", currentPage,
                     numberOfPages).getUnformattedComponentText(), guiLeft + 90, guiTop + 130, 0x6e6e6e);

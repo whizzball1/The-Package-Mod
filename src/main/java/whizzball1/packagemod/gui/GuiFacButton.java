@@ -4,7 +4,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import whizzball1.packagemod.core.CraftingPackage;
 import whizzball1.packagemod.packagemod;
 
 public class GuiFacButton extends GuiButton {
@@ -16,6 +19,8 @@ public class GuiFacButton extends GuiButton {
      * Types: 0 = 50x20
      * 1 = 20x20
      * 2 = 160x20
+     * 3 = 50x50
+     * 4 = 90x20
      */
 
     public GuiFacButton(int buttonId, int x, int y, int widthIn, int heightIn, String buttonText, int type)
@@ -36,6 +41,16 @@ public class GuiFacButton extends GuiButton {
                 this.button = new ResourceLocation(packagemod.MODID, "textures/gui/button/160x20b.png");
                 this.buttonHovered = new ResourceLocation(packagemod.MODID, "textures/gui/button/160x20h.png");
                 this.buttonDisabled = new ResourceLocation(packagemod.MODID, "textures/gui/button/160x20d.png");
+                break;
+            case 3:
+                this.button = new ResourceLocation(packagemod.MODID, "textures/gui/button/50x50b.png");
+                this.buttonHovered = new ResourceLocation(packagemod.MODID, "textures/gui/button/50x50h.png");
+                this.buttonDisabled = new ResourceLocation(packagemod.MODID, "textures/gui/button/50x50d.png");
+                break;
+            case 4:
+                this.button = new ResourceLocation(packagemod.MODID, "textures/gui/button/90x20b.png");
+                this.buttonHovered = new ResourceLocation(packagemod.MODID, "textures/gui/button/90x20h.png");
+                this.buttonDisabled = new ResourceLocation(packagemod.MODID, "textures/gui/button/90x20d.png");
                 break;
         }
     }
@@ -78,7 +93,7 @@ public class GuiFacButton extends GuiButton {
                 j = 7339936;
             }
 
-            this.drawCenteredString(fontrenderer, this.displayString, this.x + this.width / 2, this.y + (this.height - 8) / 2, j);
+            if (!(this instanceof GuiFacItemButton)) this.drawCenteredString(fontrenderer, this.displayString, this.x + this.width / 2, this.y + (this.height - 8) / 2, j);
         }
     }
 }

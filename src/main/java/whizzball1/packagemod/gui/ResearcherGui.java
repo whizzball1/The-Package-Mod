@@ -29,8 +29,8 @@ public class ResearcherGui extends GuiScreen {
     public int reqsOnPage;
     public int packsOnFirstPage;
 
-    private static final ResourceLocation background = new ResourceLocation(packagemod.MODID, "textures/gui/packager.png");
-    private static final ResourceLocation textBackground = new ResourceLocation(packagemod.MODID, "textures/gui/packagertext.png");
+    private static final ResourceLocation background = new ResourceLocation(packagemod.MODID, "textures/gui/180x152.png");
+    private static final ResourceLocation textBackground = new ResourceLocation(packagemod.MODID, "textures/gui/160x112.png");
 
     protected TileResearcher te;
 
@@ -52,10 +52,10 @@ public class ResearcherGui extends GuiScreen {
         this.guiLeft = (this.width - this.xSize) / 2;
         this.guiTop = (this.height - this.ySize) / 2;
         this.buttonList.clear();
-        addButton(new GuiButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select"));
-        GuiButton leftButton = new GuiButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-");
+        addButton(new GuiFacButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select", 0));
+        GuiButton leftButton = new GuiFacButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-", 1);
         leftButton.enabled = false;
-        GuiButton rightButton = new GuiButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->");
+        GuiButton rightButton = new GuiFacButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->", 1);
         if (te.requirementList.size() + te.packList.size() <= 4) rightButton.enabled = false;
         addButton(leftButton);
         addButton(rightButton);
@@ -161,31 +161,31 @@ public class ResearcherGui extends GuiScreen {
         } else if (button.id == 1) {
             page++;
             buttonList.clear();
-            addButton(new GuiButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select"));
+            addButton(new GuiFacButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select", 0));
             int pageSize = te.requirementList.size() - (page * 4);
             if (pageSize > 4) {
                 reqsOnPage = 4;
             } else if (pageSize > 0) {
                 reqsOnPage = pageSize;
             } else reqsOnPage = 0;
-            GuiButton rightButton = new GuiButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->");
+            GuiButton rightButton = new GuiFacButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->", 1);
             addButton(rightButton);
-            GuiButton leftButton = new GuiButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-");
+            GuiButton leftButton = new GuiFacButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-", 1);
             if (page == 0) leftButton.enabled = false;
             addButton(leftButton);
         } else if (button.id == 2) {
             page++;
             buttonList.clear();
-            addButton(new GuiButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select"));
+            addButton(new GuiFacButton(-1, guiLeft + 65, guiTop + 5, 50, 20, "Select", 0));
             int pageSize = te.requirementList.size() - (page * 4);
             if (pageSize > 4) {
                 reqsOnPage = 4;
             } else if (pageSize > 0) {
                 reqsOnPage = pageSize;
             } else reqsOnPage = 0;
-            GuiButton leftButton = new GuiButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-");
+            GuiButton leftButton = new GuiFacButton(1, guiLeft + 15, guiTop + 115, 20, 20, "<-", 1);
             addButton(leftButton);
-            GuiButton rightButton = new GuiButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->");
+            GuiButton rightButton = new GuiFacButton(2, guiLeft + 145, guiTop + 115, 20, 20, "->", 1);
             if (te.requirementList.size() + te.packList.size() <= page * 4) {
                 rightButton.enabled = false;
             }
@@ -223,7 +223,7 @@ public class ResearcherGui extends GuiScreen {
 
             for (String cp : listOfNames) {
                 idToPackage.put(cpId, cp);
-                idToButton.put(cpId, new GuiButton(cpId, 10, 0, 160, 20, cp));
+                idToButton.put(cpId, new GuiFacItemButton(cpId, 10, 0, 50, 50, cp, 3));
                 cpId++;
             }
             this.te = te;
@@ -237,16 +237,33 @@ public class ResearcherGui extends GuiScreen {
             for (int i = 1; i <= 4; i++) {
                 if (idToButton.get(i) != null) {
                     GuiButton button = idToButton.get(i);
-                    button.x = 10 + guiLeft;
-                    button.y = guiTop + 10 + 30 * (i - 1);
+                    int partOfPage = i - (currentPage - 1) * 4 - 1;
+                    switch (partOfPage % 2) {
+                        case 0:
+                            button.x = 30 + guiLeft;
+                            if (partOfPage == 0) {
+                                button.y = guiTop + 10;
+                            } else if (partOfPage == 2) {
+                                button.y = guiTop + 70;
+                            }
+                            break;
+                        case 1:
+                            button.x = 100 + guiLeft;
+                            if (partOfPage == 1) {
+                                button.y = guiTop + 10;
+                            } else if (partOfPage == 3) {
+                                button.y = guiTop + 70;
+                            }
+                            break;
+                    }
                     if (!(te.hasPrereqs(idToPackage.get(i)))) button.enabled = false;
                     if (te.ps.packagesResearched.contains(idToPackage.get(i))) button.enabled = false;
                     addButton(button);
                 }
             }
-            GuiButton leftButton = new GuiButton(-1, guiLeft + 10, guiTop + 125, 20, 20, "<-");
+            GuiButton leftButton = new GuiFacButton(-1, guiLeft + 10, guiTop + 125, 20, 20, "<-", 1);
             leftButton.enabled = false;
-            GuiButton rightButton = new GuiButton(-2, guiLeft + 150, guiTop + 125, 20, 20, "->");
+            GuiButton rightButton = new GuiFacButton(-2, guiLeft + 150, guiTop + 125, 20, 20, "->", 1);
             if (listOfNames.size() > 4) {
                 rightButton.enabled = true;
             } else rightButton.enabled = false;
@@ -275,18 +292,35 @@ public class ResearcherGui extends GuiScreen {
                 for (int i = currentPage * 4 - 3; i <= currentPage * 4; i++) {
                     if (idToButton.get(i) != null) {
                         GuiButton buttonToAdd = idToButton.get(i);
-                        buttonToAdd.x = 10 + guiLeft;
-                        buttonToAdd.y = guiTop + 10 + 30 * (i - (currentPage - 1) * 4 - 1);
+                        int partOfPage = i - (currentPage - 1) * 4 - 1;
+                        switch (partOfPage % 2) {
+                            case 0:
+                                buttonToAdd.x = 30 + guiLeft;
+                                if (partOfPage == 0) {
+                                    buttonToAdd.y = guiTop + 10;
+                                } else if (partOfPage == 2) {
+                                    buttonToAdd.y = guiTop + 70;
+                                }
+                                break;
+                            case 1:
+                                buttonToAdd.x = 100 + guiLeft;
+                                if (partOfPage == 1) {
+                                    buttonToAdd.y = guiTop + 10;
+                                } else if (partOfPage == 3) {
+                                    buttonToAdd.y = guiTop + 70;
+                                }
+                                break;
+                        }
                         if (!(te.hasPrereqs(idToPackage.get(i)))) buttonToAdd.enabled = false;
                         if (te.ps.packagesResearched.contains(idToPackage.get(i))) buttonToAdd.enabled = false;
                         addButton(buttonToAdd);
                     }
                 }
-                GuiButton leftButton = new GuiButton(-1, guiLeft + 10, guiTop + 125, 20, 20, "<-");
+                GuiButton leftButton = new GuiFacButton(-1, guiLeft + 10, guiTop + 125, 20, 20, "<-", 1);
                 if (currentPage > 1) {
                     leftButton.enabled = true;
                 } else leftButton.enabled = false;
-                GuiButton rightButton = new GuiButton(-2, guiLeft + 150, guiTop + 125, 20, 20, "->");
+                GuiButton rightButton = new GuiFacButton(-2, guiLeft + 150, guiTop + 125, 20, 20, "->", 1);
                 if (listOfNames.size() > currentPage * 4) {
                     rightButton.enabled = true;
                 } else rightButton.enabled = false;
@@ -299,15 +333,32 @@ public class ResearcherGui extends GuiScreen {
                 for (int i = currentPage * 4 - 3; i <= currentPage * 4; i++) {
                     if (idToButton.get(i) != null) {
                         GuiButton buttonToAdd = idToButton.get(i);
-                        buttonToAdd.x = 10 + guiLeft;
-                        buttonToAdd.y = guiTop + 10 + 30 * (i - (currentPage - 1) * 4 - 1);
+                        int partOfPage = i - (currentPage - 1) * 4 - 1;
+                        switch (partOfPage % 2) {
+                            case 0:
+                                buttonToAdd.x = 30 + guiLeft;
+                                if (partOfPage == 0) {
+                                    buttonToAdd.y = guiTop + 10;
+                                } else if (partOfPage == 2) {
+                                    buttonToAdd.y = guiTop + 70;
+                                }
+                                break;
+                            case 1:
+                                buttonToAdd.x = 100 + guiLeft;
+                                if (partOfPage == 1) {
+                                    buttonToAdd.y = guiTop + 10;
+                                } else if (partOfPage == 3) {
+                                    buttonToAdd.y = guiTop + 70;
+                                }
+                                break;
+                        }
                         if (!(te.hasPrereqs(idToPackage.get(i)))) buttonToAdd.enabled = false;
                         if (te.ps.packagesResearched.contains(idToPackage.get(i))) buttonToAdd.enabled = false;
                         addButton(buttonToAdd);
                     }
                 }
-                GuiButton leftButton = new GuiButton(-1, guiLeft + 10, guiTop + 125, 20, 20, "<-");
-                GuiButton rightButton = new GuiButton(-2, guiLeft + 150, guiTop + 125, 20, 20, "->");
+                GuiButton leftButton = new GuiFacButton(-1, guiLeft + 10, guiTop + 125, 20, 20, "<-", 1);
+                GuiButton rightButton = new GuiFacButton(-2, guiLeft + 150, guiTop + 125, 20, 20, "->", 1);
                 if (listOfNames.size() > currentPage * 4) {
                     rightButton.enabled = true;
                 } else rightButton.enabled = false;
@@ -324,6 +375,7 @@ public class ResearcherGui extends GuiScreen {
         @Override
         public void drawScreen(int mouseX, int mouseY, float partialTicks) {
             drawBackground(0);
+            RenderHelper.enableGUIStandardItemLighting();
             super.drawScreen(mouseX, mouseY, partialTicks);
             this.drawCenteredString(mc.fontRenderer, new TextComponentTranslation("packagemod.page", currentPage,
                     numberOfPages).getUnformattedComponentText(), guiLeft + 90, guiTop + 130, 0x6e6e6e);
