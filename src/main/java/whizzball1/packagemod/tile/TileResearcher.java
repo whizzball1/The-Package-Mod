@@ -37,7 +37,7 @@ public class TileResearcher extends TileEntity implements ITickable {
     public List<CraftingPackage.PackStack> packList = new ArrayList<>();
     public List<ItemRequirement> requirementList = new ArrayList<>();
     public ConcurrentHashMap<ItemRequirement.ReqKey, ItemRequirement> itemToRequirement = new ConcurrentHashMap<>();
-    private UUID owner;
+    public UUID owner;
     public PlayerData.PlayerSave ps;
     private int ticks = 0;
     private boolean isTherePS = true;
@@ -71,6 +71,9 @@ public class TileResearcher extends TileEntity implements ITickable {
                 }
             }
         }
+        if (compound.hasUniqueId("UUID")) {
+            setOwner(compound.getUniqueId("UUID"));
+        }
     }
 
     @Override
@@ -89,7 +92,9 @@ public class TileResearcher extends TileEntity implements ITickable {
             }
             compound.setTag("requirementList", requirementCompound);
         }
-        compound.setUniqueId("UUID", owner);
+        if (owner != null) {
+            compound.setUniqueId("UUID", owner);
+        }
         //packagemod.logger.info(compound.toString());
         return compound;
     }

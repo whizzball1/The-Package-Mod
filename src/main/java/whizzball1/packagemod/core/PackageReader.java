@@ -44,7 +44,17 @@ public class PackageReader {
 
     public static void deserialise(JsonObject packageJson) {
         String packageName = packageJson.get("name").getAsString();
+        CraftingPackage cp1 = CraftingPackage.getPackageGivenName(packageName);
+        if (cp1 != null) {
+            packagemod.logger.error("Crafting package \"" + packageName + "\" has the same name as " + cp1.name + "; not registering!");
+            return;
+        }
         String packageId = packageJson.get("id").getAsString();
+        CraftingPackage cp = CraftingPackage.getPackageGivenId(packageId);
+        if (cp != null) {
+            packagemod.logger.error("Crafting package \"" + packageName + "\" has the same ID as " + cp.name + "; not registering!");
+            return;
+        }
         int packageNumber = packageJson.get("packageNumber").getAsInt();
         JsonArray resultArray = packageJson.get("resultItem").getAsJsonArray();
         String resultItem = resultArray.get(0).getAsString();

@@ -2,6 +2,7 @@ package whizzball1.packagemod.init;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -36,9 +37,9 @@ public class ModRegistry {
     public void onBlockRegister(Register<Block> event) {
         packagemod.logger.log(Level.INFO, "registering packageMod blocks");
         event.getRegistry().registerAll(BLOCKS.toArray(new Block[0]));
-        GameRegistry.registerTileEntity(TilePackager.class, packagemod.MODID + "_packager");
-        GameRegistry.registerTileEntity(TileUnpackager.class, packagemod.MODID+"_unpackager");
-        GameRegistry.registerTileEntity(TileResearcher.class, packagemod.MODID+"_researcher");
+        GameRegistry.registerTileEntity(TilePackager.class, new ResourceLocation(packagemod.MODID, "packager"));
+        GameRegistry.registerTileEntity(TileUnpackager.class, new ResourceLocation(packagemod.MODID, "unpackager"));
+        GameRegistry.registerTileEntity(TileResearcher.class, new ResourceLocation(packagemod.MODID, "researcher"));
     }
 
     @SubscribeEvent

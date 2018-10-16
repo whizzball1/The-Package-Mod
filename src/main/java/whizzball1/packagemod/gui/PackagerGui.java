@@ -19,7 +19,6 @@ import whizzball1.packagemod.network.PackageModPacketHandler;
 import whizzball1.packagemod.network.RecipeMessage;
 import whizzball1.packagemod.packagemod;
 import whizzball1.packagemod.tile.TilePackager;
-import whizzball1.packagemod.tile.container.PackagerContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -196,7 +195,6 @@ public class PackagerGui extends GuiScreen {
         protected int currentPage = 1;
         protected TilePackager te;
         protected BlockPos teBlockPos;
-        protected PackagerContainer container;
 
         protected List<String> listOfNames = new ArrayList<String>();
         protected ConcurrentHashMap<Integer, String> packageToId = new ConcurrentHashMap<Integer, String>();

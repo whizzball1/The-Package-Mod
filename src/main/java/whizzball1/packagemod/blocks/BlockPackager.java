@@ -47,7 +47,7 @@ public class BlockPackager extends Block implements ITileEntityProvider, IHasMod
             TileEntity te = world.getTileEntity(pos);
             if (te instanceof TilePackager) {
                 TilePackager packagerTE = (TilePackager) te;
-                if (!(player instanceof FakePlayer)) {
+                if (packagerTE.owner == null) if (!(player instanceof FakePlayer)) {
                     packagerTE.setOwner(player.getUniqueID());
                 }
                 FMLCommonHandler.instance().showGuiScreen(new PackagerGui(packagerTE));

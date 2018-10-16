@@ -51,7 +51,7 @@ public class BlockResearcher extends Block implements ITileEntityProvider, IHasM
             TileEntity te = world.getTileEntity(pos);
             if (te instanceof TileResearcher) {
                 TileResearcher researcherTE = (TileResearcher) te;
-                if (!(player instanceof FakePlayer)) {
+                if (researcherTE.owner == null) if (!(player instanceof FakePlayer)) {
                     researcherTE.setOwner(player.getUniqueID());
                 }
                 FMLCommonHandler.instance().showGuiScreen(new ResearcherGui(researcherTE));

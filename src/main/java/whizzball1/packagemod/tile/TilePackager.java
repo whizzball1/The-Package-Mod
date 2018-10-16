@@ -44,7 +44,7 @@ public class TilePackager extends TileEntity implements ITickable {
     public boolean recipeComplete = false;
     public List<ItemRequirement> requirementList = new ArrayList<>();
     public ConcurrentHashMap<ItemRequirement.ReqKey, ItemRequirement> itemToRequirement = new ConcurrentHashMap<>();
-    private UUID owner;
+    public UUID owner;
     public PlayerData.PlayerSave ps;
 
     public TilePackager() {
@@ -55,7 +55,7 @@ public class TilePackager extends TileEntity implements ITickable {
     public void readFromNBT(NBTTagCompound compound) {
         //packagemod.logger.info(compound.toString());
         super.readFromNBT(compound);
-        String tempRecipeName = compound.getString(("recipeName"));
+        String tempRecipeName = compound.getString("recipeName");
         if (!(tempRecipeName.equals(""))) {
             if (CraftingPackage.getPackageGivenName(tempRecipeName) != null) {
                 this.changeRecipe(compound.getString("recipeName"));
@@ -73,8 +73,9 @@ public class TilePackager extends TileEntity implements ITickable {
                 if (compound.getBoolean("recipeComplete") == true) recipeComplete = true;
             }
         }
-        this.owner = compound.getUniqueId("UUID");
-        setOwner(owner);
+        if (compound.hasUniqueId("UUID")) {
+            setOwner(compound.getUniqueId("UUID"));
+        }
     }
 
     @Override
@@ -93,7 +94,9 @@ public class TilePackager extends TileEntity implements ITickable {
             }
             compound.setTag("requirementList", requirementCompound);
         }
-        compound.setUniqueId("UUID", owner);
+        if (owner != null) {
+            compound.setUniqueId("UUID", owner);
+        }
         //packagemod.logger.info(compound.toString());
         return compound;
     }
@@ -206,6 +209,7 @@ public class TilePackager extends TileEntity implements ITickable {
             }
         }
         this.markDirty();
+        packagemod.logger.info(owner.toString());
     }
 
     public void setOwner(NBTTagCompound data) {

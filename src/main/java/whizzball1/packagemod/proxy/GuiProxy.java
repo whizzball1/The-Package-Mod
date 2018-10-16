@@ -7,7 +7,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import whizzball1.packagemod.gui.PackagerGui;
 import whizzball1.packagemod.tile.TilePackager;
-import whizzball1.packagemod.tile.container.PackagerContainer;
 
 public class GuiProxy implements IGuiHandler {
     @Override
