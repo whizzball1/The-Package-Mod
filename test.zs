@@ -17,7 +17,7 @@ test.addRequirements(<minecraft:ender_pearl> * 4, <minecraft:blaze_powder> * 4);
 //This clear all requirements currently set and replaces them with this array and only this one.
 //test.setRequirements(<minecraft:ender_pearl> * 4, <minecraft:blaze_powder> * 4);
 
-
+//Object for research
 val research = ResearchBuilder.get();
 research.addIngredients(<minecraft:ender_chest> * 8);
 //One at a time for the next two methods.
