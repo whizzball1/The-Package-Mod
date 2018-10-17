@@ -359,6 +359,13 @@ public class PackagerGui extends GuiScreen {
             super.drawScreen(mouseX, mouseY, partialTicks);
             this.drawCenteredString(mc.fontRenderer, new TextComponentTranslation("packagemod.page", currentPage,
                     numberOfPages).getUnformattedComponentText(), guiLeft + 90, guiTop + 130, 0x6e6e6e);
+            for (GuiButton b:buttonList) {
+                if (b.isMouseOver()) if (b instanceof GuiFacItemButton) {
+                    GuiFacItemButton bb = (GuiFacItemButton) b;
+                    this.drawHoveringText(bb.cp.name, mouseX, mouseY);
+                }
+            }
+
         }
 
         @Override

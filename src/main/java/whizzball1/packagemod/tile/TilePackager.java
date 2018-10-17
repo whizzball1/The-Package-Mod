@@ -138,7 +138,7 @@ public class TilePackager extends TileEntity implements ITickable {
     }
 
     public void changeRecipe(String cp) {
-        packagemod.logger.info("Received " + cp + ", changing recipe");
+        //packagemod.logger.info("Received " + cp + ", changing recipe");
         recipeName = cp;
         //packagemod.logger.info(recipeName);
         requirementList = CraftingPackage.getPackageGivenName(cp).cloneList();
@@ -160,7 +160,7 @@ public class TilePackager extends TileEntity implements ITickable {
         }
         if (isItComplete) {
             this.recipeComplete = true;
-            packagemod.logger.info("it's complete!");
+            //packagemod.logger.info("it's complete!");
             setMade(this.recipeName);
         }
     }
@@ -209,7 +209,7 @@ public class TilePackager extends TileEntity implements ITickable {
             }
         }
         this.markDirty();
-        packagemod.logger.info(owner.toString());
+        //packagemod.logger.info(owner.toString());
     }
 
     public void setOwner(NBTTagCompound data) {
@@ -220,7 +220,7 @@ public class TilePackager extends TileEntity implements ITickable {
     }
 
     public void setMade(String name) {
-        packagemod.logger.info("setting made");
+        //packagemod.logger.info("setting made");
         if (world != null) if (!(world.isRemote)) {
             PlayerData.PlayerSave data = PlayerData.getDataFromPlayer(world, owner);
             int madeInt = data.packagesMade.get(name);

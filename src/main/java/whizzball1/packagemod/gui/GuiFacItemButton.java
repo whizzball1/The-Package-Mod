@@ -9,10 +9,11 @@ import whizzball1.packagemod.core.CraftingPackage;
 public class GuiFacItemButton extends GuiFacButton {
 
     private ItemStack display;
+    public CraftingPackage cp;
 
     GuiFacItemButton(int buttonId, int x, int y, int widthIn, int heightIn, String buttonText, int type) {
         super(buttonId, x, y, widthIn, heightIn, buttonText, type);
-        CraftingPackage cp = CraftingPackage.getPackageGivenName(buttonText);
+        cp = CraftingPackage.getPackageGivenName(buttonText);
         display = new ItemStack(cp.result.item.getItem(), cp.number);
     }
 

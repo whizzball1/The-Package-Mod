@@ -231,7 +231,7 @@ public class ResearcherGui extends GuiScreen {
 
         @Override
         public void initGui() {
-            packagemod.logger.info("Initiating GUI");
+            //packagemod.logger.info("Initiating GUI");
             this.guiLeft = (this.width - this.xSize) / 2;
             this.guiTop = (this.height - this.ySize) / 2;
             for (int i = 1; i <= 4; i++) {

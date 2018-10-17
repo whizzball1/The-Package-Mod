@@ -50,6 +50,19 @@ public class CraftingPackage implements Comparable<CraftingPackage> {
         this.research = new PackageResearch(research);
     }
 
+    public CraftingPackage(String name, String id, int number, ItemRequirement result, List<ItemRequirement> inputs, PackageResearch research) {
+        this.name = name;
+        this.id = id;
+        this.intId = packagemod.craftingPackageList.size();
+        this.number = number;
+        this.result = result;
+        this.inputs = inputs;
+        for (ItemRequirement i:inputs) {
+            this.stackToRequirement.put(new ItemRequirement.ReqKey(i.item), i);
+        }
+        this.research = research;
+    }
+
     public int compareTo(CraftingPackage c) {
         int compared = id.compareTo(c.id);
         return compared;
@@ -67,7 +80,7 @@ public class CraftingPackage implements Comparable<CraftingPackage> {
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setString("Name", name);
         nbt.setInteger("Amount", cp.result.totalRequirement);
-        packagemod.logger.info(nbt.toString());
+        //packagemod.logger.info(nbt.toString());
         return nbt;
     }
 
@@ -153,16 +166,16 @@ public class CraftingPackage implements Comparable<CraftingPackage> {
         return false;
     }
 
-    public class PackStack {
+    public static class PackStack {
         public String packName;
         public int packNumber;
-        PackStack(String name, int number) {
+        public PackStack(String name, int number) {
             this.packName = name;
             this.packNumber = number;
         }
     }
 
-    public class PackageResearch {
+    public static class PackageResearch {
         public List<ItemRequirement> ingredientInputs = new ArrayList<ItemRequirement>();
         public List<PackStack> packInputs = new ArrayList<PackStack>();
         public List<String> preReqs = new ArrayList<>();
@@ -197,6 +210,15 @@ public class CraftingPackage implements Comparable<CraftingPackage> {
 
                 }
             }
+        }
+
+        public PackageResearch(List<ItemRequirement> ingredients, List<PackStack> packs, List<String> preReqs) {
+            ingredientInputs = ingredients;
+            for (ItemRequirement i:ingredientInputs) {
+                stackToResearch.put(new ItemRequirement.ReqKey(i.item), i);
+            }
+            packInputs = packs;
+            this.preReqs = preReqs;
         }
 
         public List<ItemRequirement> cloneItemList() {

@@ -60,7 +60,7 @@ public class WorldData extends WorldSavedData {
 
     @Override
     public void readFromNBT(NBTTagCompound compound){
-        packagemod.logger.info("read occurring!");
+        //packagemod.logger.info("read occurring!");
         this.readFromNBT(compound, false);
     }
 
@@ -81,7 +81,7 @@ public class WorldData extends WorldSavedData {
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        packagemod.logger.info("write occurring!");
+        //packagemod.logger.info("write occurring!");
         NBTTagList playerList = new NBTTagList();
         for(PlayerData.PlayerSave save : this.playerSaveData.values()) {
             NBTTagCompound player = new NBTTagCompound();

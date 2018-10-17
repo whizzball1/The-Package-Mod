@@ -45,6 +45,11 @@ public class ItemRequirement implements Comparable<ItemRequirement> {
         }
     }
 
+    @Override
+    public String toString() {
+        return item.getItem().getRegistryName().toString() + ":" + item.getMetadata() + " * " + totalRequirement;
+    }
+
     public boolean equals(Object isItEqual) {
         if (this == isItEqual) {
             return true;

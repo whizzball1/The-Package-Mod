@@ -49,7 +49,7 @@ public class TileResearcher extends TileEntity implements ITickable {
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        packagemod.logger.info("reading from NBT");
+        //packagemod.logger.info("reading from NBT");
         //packagemod.logger.info(compound.toString());
         super.readFromNBT(compound);
         this.owner = compound.getUniqueId("UUID");
@@ -217,7 +217,7 @@ public class TileResearcher extends TileEntity implements ITickable {
         //packagemod.logger.info(pr.preReqs.toString());
         boolean hasPrereqs = true;
         for (String toCheck : pr.preReqs) {
-            packagemod.logger.info(ps.packagesResearched);
+            //packagemod.logger.info(ps.packagesResearched);
             if (!(ps.packagesResearched.contains(toCheck))) {
                 hasPrereqs = false;
             }
