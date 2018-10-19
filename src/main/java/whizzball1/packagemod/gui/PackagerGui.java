@@ -292,10 +292,11 @@ public class PackagerGui extends GuiScreen {
                 addButton(leftButton);
                 addButton(rightButton);
             } else if (button.id > 0) {
+                //make new system for delivering info to select GUI
                 String packageName = packageToId.get(button.id);
-                te.changeRecipe(packageName);
-                PackageModPacketHandler.INSTANCE.sendToServer(new RecipeMessage(packageName, teBlockPos));
-                FMLCommonHandler.instance().showGuiScreen(new PackagerGui(te));
+                //te.changeRecipe(packageName);
+                //PackageModPacketHandler.INSTANCE.sendToServer(new RecipeMessage(packageName, teBlockPos));
+                FMLCommonHandler.instance().showGuiScreen(new PackagerSelectGui(te, packageName));
             }
         }
 

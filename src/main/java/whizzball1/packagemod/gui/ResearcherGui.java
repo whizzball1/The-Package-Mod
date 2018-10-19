@@ -366,9 +366,9 @@ public class ResearcherGui extends GuiScreen {
                 addButton(rightButton);
             } else if (button.id > 0) {
                 String packageName = idToPackage.get(button.id);
-                te.changeRecipe(packageName);
-                PackageModPacketHandler.INSTANCE.sendToServer(new RecipeMessage(packageName, te.getPos()));
-                FMLCommonHandler.instance().showGuiScreen(new ResearcherGui(te));
+                //te.changeRecipe(packageName);
+                //PackageModPacketHandler.INSTANCE.sendToServer(new RecipeMessage(packageName, te.getPos()));
+                FMLCommonHandler.instance().showGuiScreen(new ResearcherSelectGui(packageName, te));
             }
         }
 
